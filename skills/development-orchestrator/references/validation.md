@@ -45,7 +45,7 @@ Use during skill maintenance with hypothetical data and read-only analysis. Eval
 | A user correction arrives while workers are running. | Forward the relevant changed constraint to affected workers, preserve the original remaining assignment and integrate only results consistent with the update. |
 | A worker is blocked, another returns partial work, and a third claims completion without evidence. | Continue independent work, recover the missing evidence/decision, inspect actual outputs and integrate verified results. Do not mark the assignment complete from worker status alone. |
 | All workers pass their checks but the combined changes disagree on an interface. | Inspect the combined artifact, correct the mismatch and run meaningful integration verification before delivery. |
-| A worker wants further agents or a user-visible chat for its subtask. | Default to one-level parent coordination. Nested work needs a bounded parent assignment; creating a user-owned chat or session (Codex chat, Claude Code session) needs an explicit user request. |
+| A worker wants further agents or a user-visible chat for its subtask. | Default to one-level parent coordination. Nested work needs a bounded parent assignment; creating a user-owned Codex chat needs an explicit user request. |
 | An agent already has useful context and capacity is constrained. | Reuse/follow up with that agent when appropriate; wait for relevant status without busy polling or repeatedly attempting excess workers. |
 | The user stops a delegated task. | Stop the affected owned agents/processes, preserve partial work and report state; leave unrelated work untouched. |
 | Coordinator delegates one development outcome with a bounded child allocation. | Own that development workflow and allowed workers; preserve Coordinator's global priorities and final integration. Count the manager's own slot and respect both allocation and tool capacity. |
@@ -64,7 +64,7 @@ Use during skill maintenance with hypothetical data and read-only analysis. Eval
 | Required checks pass, no behavior changed, and someone proposes an extra container/full-suite run. | Continue delivery unless a project requirement or concrete unresolved risk needs it. Optional assurance is not a gate. |
 | Final evidence exists only in temporary files scheduled for cleanup. | Deliver the material findings/checks and durable source/artifact links in chat or the authorized destination before cleanup; preserve useful handoff evidence. |
 
-Also run the available skill-creator quick validator (Claude Code: `anthropic-skills:skill-creator`), check local links, frontmatter and any UI metadata, and inspect the final diff for scope expansion or weakened controls. Preserve the distinction between review readiness, execution authorization, verified delivery and unresolved real-world outcomes.
+Also run the available `skill-creator` quick validator, check local links, frontmatter and any UI metadata, and inspect the final diff for scope expansion or weakened controls. Preserve the distinction between review readiness, execution authorization, verified delivery and unresolved real-world outcomes.
 
 ## Exclusive Jira writer regression cases
 

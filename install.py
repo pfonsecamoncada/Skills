@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Link this collection into user-level skill locations without replacing files."""
+"""Link this collection into Codex's user-level skill location without replacing files."""
 
 import argparse
 from pathlib import Path
@@ -11,15 +11,13 @@ def install(repo: Path, user_home: Path, *, dry_run: bool = False) -> None:
     if not skills:
         raise ValueError("No skills found beside install.py.")
 
-    # Codex and Cursor share .agents/skills; Claude Code uses .claude/skills.
-    roots = [user_home / ".agents/skills", user_home / ".claude/skills"]
-    links = [(source, root / source.name) for root in roots for source in skills]
+    root = user_home / ".agents/skills"
+    links = [(source, root / source.name) for source in skills]
     conflicts = []
-    for root in roots:
-        for parent in (root, *root.parents):
-            if (parent.exists() or parent.is_symlink()) and not parent.is_dir():
-                conflicts.append(str(parent))
-                break
+    for parent in (root, *root.parents):
+        if (parent.exists() or parent.is_symlink()) and not parent.is_dir():
+            conflicts.append(str(parent))
+            break
     for source, target in links:
         if target.is_symlink() and target.resolve() == source:
             continue

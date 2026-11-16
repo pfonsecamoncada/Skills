@@ -99,7 +99,7 @@ Then two short closing sections:
 Decide, don't ask:
 
 - **Up to about a week, or a quick question**: answer in chat. Themes as short headed sections, evidence inline as dates and links, gaps at the end.
-- **More than a week, or an audience beyond the user (manager, review, client)**: make a document with whatever the agent produces best: a native shareable doc (Claude Docs, Google Docs, Notion) when a tool for one is available, otherwise a local Markdown/Word file. Publishing or sharing requires a request covering that action. Same structure, more room for evidence.
+- **More than a week, or an audience beyond the user (manager, review, client)**: make a document with whatever the agent produces best: a native shareable document through an available Codex connector (such as Google Docs or Notion), otherwise a local Markdown/Word file. Publishing or sharing requires a request covering that action. Same structure, more room for evidence.
 - **A month or more, or the user wants the raw log**: the doc plus a spreadsheet of the full evidence file (one row per item: date, source, involvement, description, link), so they can filter and sort (.xlsx or .csv; use the agent's spreadsheet skill if it has one).
 
 Whatever the format, the first lines are the answer: the range, the number of items found, and the themes in one sentence each. The detail follows.

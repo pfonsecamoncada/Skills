@@ -5,7 +5,7 @@ description: Helps users discover and install agent skills when they ask questio
 
 # Find Skills
 
-This skill helps you discover and install skills from the open agent skills ecosystem.
+This skill helps Codex discover skills from the open agent skills ecosystem. Install only for Codex at user level when the user requests installation; inspect candidates for Codex compatibility before recommending them. Do not configure other agent products.
 
 ## When to Use This Skill
 
@@ -25,8 +25,8 @@ The Skills CLI (`npx skills`) is the package manager for the open agent skills e
 **Key commands:**
 
 - `npx skills find [query] [--owner <owner>]` - Search for skills interactively or by keyword, optionally scoped to a GitHub owner
-- `npx skills add <package>` - Install a skill from GitHub or other sources
-- `npx skills update` - Update all installed skills
+- `npx skills add --help` - Inspect current installation options; any installation must explicitly target Codex at user level
+- `npx skills update --help` - Inspect update scope; update only authorized Codex installations, never all detected products by default
 
 **Browse skills at:** https://skills.sh/
 
@@ -76,7 +76,7 @@ When you find relevant skills, present them to the user with:
 
 1. The skill name and what it does
 2. The install count and source
-3. The install command they can run
+3. The verified Codex user-level installation method
 4. A link to learn more at skills.sh
 
 Example response:
@@ -86,21 +86,15 @@ I found a skill that might help! The "react-best-practices" skill provides
 React and Next.js performance optimization guidelines from Vercel Engineering.
 (185K installs)
 
-To install it:
-npx skills add vercel-labs/agent-skills@react-best-practices
+If you want it installed, ask Codex to install
+vercel-labs/agent-skills@react-best-practices at user level for Codex only.
 
 Learn more: https://skills.sh/vercel-labs/agent-skills/react-best-practices
 ```
 
 ### Step 6: Offer to Install
 
-If the user wants to proceed, you can install the skill for them:
-
-```bash
-npx skills add <owner/repo@skill> -g -y
-```
-
-The `-g` flag installs globally (user-level) and `-y` skips confirmation prompts.
+When the user requests installation, use an available Codex skill installer and its documented workflow. If using the Skills CLI instead, inspect its current help and select Codex explicitly with user-level installation; do not accept a default that installs to multiple detected products. Verify the destination and preserve existing conflicting files. If Codex-only targeting is unsupported or unclear, report that limitation rather than installing to other products. Discovery alone does not authorize installation.
 
 ## Common Skill Categories
 

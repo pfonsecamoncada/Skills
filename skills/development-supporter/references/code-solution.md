@@ -27,7 +27,7 @@ Continue through these phases without asking for routine approvals. Pause only f
 
 ## Phase 1: Recon and base
 
-1. Read applicable CLAUDE.md, AGENTS.md, README, CONTRIBUTING, package/build manifests, lockfiles, CI, PR template and hook/commitlint config. Inspect environment names and example configuration without printing secret values.
+1. Read applicable AGENTS.md, README, CONTRIBUTING, package/build manifests, lockfiles, CI, PR template and hook/commitlint config. Inspect environment names and example configuration without printing secret values.
 2. Identify relevant commands, runtime, environment/data connections and existing spec conventions. Record the required checks; do not invent a browser, build or test suite for a repository that has none.
 3. Verify the local remote host/owner/repository against the intended project, including fork versus upstream; record the intended PR destination. Inspect `git status` and existing branches/PRs for the ticket. Preserve unrelated work. Reuse a branch clearly belonging to the assignment; ask only when ownership or divergence is unclear. With unrelated dirty files, prefer an isolated worktree rather than forcing the user to stash, commit or abort. Do not discard or include those changes.
 4. Fetch origin and verify `origin/DEV` (case-sensitive) for new implementation branches. Use its resolved SHA as the baseline. Missing DEV or fetch failure blocks branch creation; never silently fall back to main/master/develop. Keep the recorded baseline for before/after checks even if DEV later advances.
@@ -103,7 +103,7 @@ Before delivery, confirm a repository change remains necessary. Otherwise rerout
 
 Commit verified work on the ticket's codex/ branch as part of end-to-end delivery. Conventional Commits and repository rules apply. Use imperative subjects, a 72-character header limit unless repository rules differ, and `Refs: <KEY>` in each commit. No Jira Smart Commit commands. Keep logical changes atomic and tests with the code they cover.
 
-Stage explicit paths, inspect the staged diff and let hooks run. Never blindly add unrelated files, secrets, environment files, logs, local `.claude` or `.codex` config or screenshots. Inspect hook changes and rerun affected checks; they can invalidate reviewed behavior. No `--no-verify`.
+Stage explicit paths, inspect the staged diff and let hooks run. Never blindly add unrelated files, secrets, environment files, logs, local agent configuration (including `.codex`) or screenshots. Inspect hook changes and rerun affected checks; they can invalidate reviewed behavior. No `--no-verify`.
 
 ## Phase 9: Requested audit analysis or commits (checkpoint 5)
 

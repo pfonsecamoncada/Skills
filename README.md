@@ -1,6 +1,6 @@
 # Skills
 
-Reusable agent skills for coordination, development, requirements, ticket creation,
+Codex skills for coordination, development, requirements, ticket creation,
 review, and work reporting. Maintained in
 [pfonsecamoncada/Skills](https://github.com/pfonsecamoncada/Skills).
 Skills maintained in
@@ -8,8 +8,8 @@ Skills maintained in
 belong there and are excluded here. Third-party skills are included only when
 one of these custom skills depends on them.
 
-The collection is adapted for internal team use. Repository skills must never
-contain the maintainer’s personal information or private working state. Each
+The repository copies are adapted **only for Codex**, for internal team use.
+Repository skills must never contain the maintainer’s personal information or private working state. Each
 team supplies its own identities, accounts, projects, audience and preferences
 through current authorized context. Privacy takes priority over verbatim source
 copying; installed originals retain their own personal configuration.
@@ -19,7 +19,7 @@ copying; installed originals retain their own personal configuration.
 | Skill | Ownership | Purpose |
 | --- | --- | --- |
 | [coordinator](skills/coordinator) | Custom | Coordinate the overall outcome across specialist skills and bounded agents. |
-| [project-manager](skills/project-manager) | Custom | Recover pending work and keep a private continuity journal across products. |
+| [project-manager](skills/project-manager) | Custom | Recover pending work and keep a private continuity journal across Codex sessions. |
 | [skill-improver](skills/skill-improver) | Custom | Review and improve skill intent, strategy, and instructions. |
 | [mad-senior](skills/mad-senior) | Custom | Review consequential non-code decisions and evidence. |
 | [development-orchestrator](skills/development-orchestrator) | Custom | Coordinate skills, reviews, approvals, and delivery. |
@@ -36,9 +36,9 @@ copying; installed originals retain their own personal configuration.
 | [openai-docs](skills/openai-docs) | Third-party dependency | Verify Codex configuration and client guidance for capability creation. |
 
 Everything lives directly under `skills/<skill-name>/`. Each folder is the
-single maintained source for every product. Shared instructions stay in
-`SKILL.md`; longer product-specific guidance lives in `references/hosts/` inside
-the owning skill, and optional Codex UI metadata stays in `agents/openai.yaml`.
+Codex-adapted copy. Workflow instructions stay in `SKILL.md`, supporting
+references stay with the owning skill, and optional Codex UI metadata stays in
+`agents/openai.yaml`.
 There are no separate product copies or category directories.
 [SOURCES.md](SOURCES.md) records origins, dependencies, exclusions, and packaging
 changes. [AGENTS.md](AGENTS.md) defines how to maintain this repository.
@@ -49,13 +49,10 @@ Here, **global means user-level: available across all local projects for your
 operating-system account**. Never install this collection into an individual
 project. Installation does not require administrator access or `sudo`.
 
-The installation uses these documented locations:
-
-| Product | User-level location used here | Documentation |
-| --- | --- | --- |
-| Codex | `~/.agents/skills/` | [OpenAI skill locations](https://learn.chatgpt.com/docs/build-skills) |
-| Claude Code | `~/.claude/skills/` | [Claude Code personal skills](https://code.claude.com/docs/en/skills) |
-| Cursor | `~/.agents/skills/`, shared with Codex | [Cursor skill locations](https://cursor.com/help/customization/skills) |
+The installer uses Codex’s documented user-level `~/.agents/skills/` location.
+See [OpenAI skill locations](https://learn.chatgpt.com/docs/build-skills). It creates
+no installation links for other products. Other software may independently
+scan that shared directory; this collection supports execution only in Codex.
 
 ### macOS and Linux
 
@@ -71,11 +68,9 @@ python3 install.py
 ```
 
 If you already have a clone, run the last two commands from that clone instead.
-The installer links each complete skill folder into the two user-level roots.
-Codex and Cursor discover `~/.agents/skills`; Claude Code discovers
-`~/.claude/skills`. Both roots point to the same physical files in this clone,
-so an edit is shared across products. Dependencies are included automatically.
-Keep the clone in place; no additional `~/.codex/skills` copy is needed.
+The installer links each complete skill folder into `~/.agents/skills`,
+pointing to the physical files in this clone. Dependencies are included
+automatically. Keep the clone in place; no additional `~/.codex/skills` copy is needed.
 
 Existing links to this clone are accepted on reruns. An existing directory,
 different link, or broken link with the same name stops installation before any
@@ -91,9 +86,9 @@ When migrating an older `jira-ticket-supporter`, keep its
 location under your configured `XDG_STATE_HOME`, before retiring the old skill.
 Do not overwrite existing state; reconcile both sets of entries if necessary.
 
-Check for older duplicate installations in `~/.codex/skills/`,
-`~/.cursor/skills/`, and enabled plugins. The installer does not remove them.
-Keep one active source for each skill after comparing any local differences;
+Check for older duplicate Codex installations in `~/.codex/skills/` and enabled
+plugins. The installer does not remove them or manage other products’ existing
+installations. Keep one active source for each skill after comparing any local differences;
 duplicate copies can produce duplicate or conflicting skill choices.
 
 ### Windows
@@ -109,23 +104,22 @@ py -3 install.py
 
 Native Windows symlinks require suitable permissions (commonly Developer Mode).
 If symlinks are unavailable, copy each complete `skills/<skill-name>` directory
-into `%USERPROFILE%\.agents\skills\` and `%USERPROFILE%\.claude\skills\` after
-checking for conflicts. Keep all sixteen folders together in each location so
-relative dependency references resolve. Copies must be updated manually and do not provide the symlink installation’s
-single source of truth.
+into `%USERPROFILE%\.agents\skills\` after checking for conflicts.
+Keep all sixteen folders together so relative dependency references resolve.
+Copies must be updated manually; symlinks keep one source in the clone.
 
 ### Verify and use
 
-Start a fresh session in each product, open an unrelated project, and ask it to
+Start a fresh Codex session, open an unrelated project, and ask it to
 list the available skills. Confirm the eleven custom skills and five dependencies
 appear. For example: "Use requirement-collector to organize these requirements."
-Codex also supports `$skill-name`; Claude Code and Cursor support `/skill-name`.
+Invoke a skill with `$skill-name` in Codex.
 
 The installer supplies instructions and supporting files, not service access.
 Jira workflows require authenticated `acli`; repository delivery requires Git
 and `gh`; discovery through `find-skills` uses Node.js/npm. Work research needs
 the relevant connectors or permitted browser/desktop tools. Check the selected
-skill's prerequisites and use the capabilities exposed by the current product.
+skill's prerequisites and use the capabilities exposed by the current Codex session.
 Skill validation uses Python 3 with PyYAML; the OpenAI Docs helpers use Node.js
 and network access. Install these only when their selected workflow needs them.
 Installing a skill does not install connectors or authorize external writes.
@@ -137,15 +131,15 @@ skill folders, not their entire upstream packages, command-line tools, or
 binaries. Their licenses and sources are recorded in SOURCES.md.
 
 Project Manager stores its journal outside the checkout in private user state,
-shared across hosts. Jira memory and the development skill inventory also belong
-in private user state. None is created by this installer. Work Detective’s
+shared across Codex sessions. Jira memory and the development skill inventory
+also belong in private user state. None is created by this installer. Work Detective’s
 optional Python helper reads authorized local Claude/Codex session stores; its
 local coverage is not a substitute for unavailable remote chat history.
+Claude history is an evidence source read from Codex, not an execution target.
 
 The skills resolve identity, assignee, audience, timezone, and service choices
 from the current user's context. No maintainer account, personal reporting
-preferences, or private project memory is bundled. Shared skill files do not
-make every product's tools interchangeable.
+preferences, or private project memory is bundled.
 `agents/openai.yaml` is optional Codex metadata; the portable entrypoint is
 `SKILL.md`.
 
@@ -167,13 +161,12 @@ only to repository copies. Review `git diff` before committing and pushing backu
 into the repository.
 
 For separately maintained installations, resolve `~/.agents/skills` and any
-`~/.codex/skills` / `~/.claude/skills` aliases before comparing sources. When
-they resolve to the same folder, back it up once. Retain shared instructions
-and host references together; adapt repository copies for portability without
-rewriting the installed originals.
+catalog aliases before comparing sources. When aliases resolve to the same
+folder, compare it once. Adapt the repository copy to Codex while preserving
+its intended workflow and privacy rules. Leave shared installed originals intact.
 
 To uninstall, remove only the per-skill symlinks that point into this clone from
-`~/.agents/skills/` and `~/.claude/skills/`. Keep unrelated skills and private
+`~/.agents/skills/`. Keep other products’ installations, unrelated skills and private
 runtime state. Remove the clone only after its links are gone and any edits are
 backed up. For copy-based installs, compare and back up local edits before
 removing those specific copied folders.

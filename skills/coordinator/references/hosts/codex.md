@@ -1,6 +1,6 @@
 # Coordinator host note: Codex
 
-Read this only when running in Codex. It maps Coordinator's generic routes and rules to Codex names.
+Use this reference for Coordinator’s Codex routes, skill locations, agent roles and startup configuration.
 
 ## Skill sources
 

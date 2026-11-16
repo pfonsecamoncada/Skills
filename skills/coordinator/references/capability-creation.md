@@ -6,8 +6,8 @@ Use this reference for explicit capability requests and opportunities identified
 
 - **Reuse:** an existing skill or focused worker brief is sufficient and there is no concrete durable benefit to authoring. Keep one-off details in the assignment.
 - **Improve:** an existing maintained skill owns the workflow, but its instructions cause avoidable rework, miss an accepted recurring preference, or omit reusable knowledge established by the task. Route to `skill-improver` with the observed behavior and source evidence. Distinguish an instruction defect from execution that ignored adequate instructions; the latter may need a corrected handoff, not more rules.
-- **Create:** no suitable skill owns a reusable workflow, and preserving its non-obvious method would materially help future work or repeated parts of the current assignment. Route to the host's skill-creator (Codex: `skill-creator`; Claude Code: `anthropic-skills:skill-creator`). Successful ad hoc work can establish this opportunity; inability to complete the task is not required, nor is an arbitrary number of prior occurrences.
-- **Specialize an agent:** use a narrowly scoped host agent role (Codex agent TOML, Claude Code subagent Markdown) only when stable role instructions/capability settings add value beyond a skill. Prefer references to installed skills over copying workflows. A role definition is not an extra permission grant.
+- **Create:** no suitable skill owns a reusable workflow, and preserving its non-obvious method would materially help future work or repeated parts of the current assignment. Route to `skill-creator` from the active Codex catalog or the bundled standalone skill. Successful ad hoc work can establish this opportunity; inability to complete the task is not required, nor is an arbitrary number of prior occurrences.
+- **Specialize an agent:** use a narrowly scoped Codex agent TOML role only when stable role instructions/capability settings add value beyond a skill. Prefer references to installed skills over copying workflows. A role definition is not an extra permission grant.
 
 For authoring, give the selected owner the evidence, intended requests and benefit, nearby exclusions, existing owner/candidate overlap, maintained destination, constraints, authorization and representative validation cases. Resolve aliases and inspect current changes before editing. Default to user-maintained skills; for a managed skill, prepare a concrete proposal at its maintained source rather than patching a plugin cache or creating a shadow copy. Missing authoring tools need an explicit fallback or limitation, not a claim that authoring ran.
 
@@ -17,7 +17,7 @@ Inspect and validate the changed capability before using it: follow its owner's 
 
 ## Agent role format: verify the installed client first
 
-Role file format, location, discovery and validation differ by host. Read the section for your host in [hosts/codex.md](hosts/codex.md) or [hosts/claude.md](hosts/claude.md). On another host, verify its documented format before writing; never assume one host's format is discovered by another.
+Read [the Codex configuration reference](hosts/codex.md) for role format, location, discovery and validation. Check the installed Codex client and active delegation schema before writing a role; a TOML file on disk is not proof that the current runtime discovers it.
 
 ## Preserve configuration and authority
 
@@ -39,10 +39,10 @@ The current collaboration tool surface may differ from the public CLI. Inspect t
 
 ## Global Coordinator startup guidance
 
-For the user's explicit preference to start new sessions with Coordinator, add a concise instruction to the host's global instruction file (host note), preserving existing preferences. Later project instructions can override earlier guidance. Hosts build this chain per session, so verify in a fresh session rather than promising an existing chat reload.
+For the user's explicit preference to start new sessions with Coordinator, add a concise instruction to the active Codex home's global instruction file (host note), preserving existing preferences. Later project instructions can override earlier guidance. Codex builds this chain per session, so verify in a fresh session rather than promising an existing chat reload.
 
 Apply that startup instruction to the primary/root agent only. A delegated worker must retain its assigned specialist role; it must not bootstrap another Coordinator merely because it inherits global instructions. A root can read and follow Coordinator without spawning a duplicate root agent. Respect explicit current user exclusions, higher-priority instructions and unavailable delegation tools.
 
-This is a local startup convention for the host that loads that file, not a guarantee for other hosts, web chat products or running sessions. Preserve existing global overrides rather than deleting them to force activation. Verification should inspect loaded instruction sources or a fresh-session response without changing model, permission or account settings.
+This is a local Codex startup convention, not a guarantee that remote or already-running sessions load the file. Preserve existing global overrides rather than deleting them to force activation. Verification should inspect loaded instruction sources or a fresh-session response without changing model, permission or account settings.
 
-Made host-neutral on 2026-11-16 (Codex details verified 2026-11-04, Claude Code 2026-11-11). Recheck client-specific support before future agent/config changes.
+Recheck current Codex support before future agent or configuration changes.

@@ -22,6 +22,21 @@ requested. Before every publication, inspect the complete included file set for
 personal information and private state, including metadata, examples, scripts
 and assets. Resolve any finding before publication and report validation limits.
 
+## Codex-only adaptation
+
+Repository skills are adapted only for Codex. Shared local skill folders are
+source artifacts, not a promise of multi-product support in this repository.
+Translate their workflows to Codex's available tools, skill discovery, agent
+roles and permission model. Exclude other products' execution instructions,
+host adapters and installation targets. Keep the installed shared sources
+unchanged. Current explicit Codex-only scope overrides older multi-product
+setup guidance recovered from previous conversations.
+
+A workflow running in Codex may read authorized evidence from other products,
+such as Claude conversation history. Treat those as data sources, not alternate
+execution hosts or assumed tools. Preserve useful source coverage without
+requiring Claude-specific tools to run the workflow.
+
 ## Scope and ownership
 
 The canonical public repository is `pfonsecamoncada/Skills`, owned by its
@@ -60,20 +75,20 @@ Suggest optional capabilities when relevant rather than installing them all.
   only for a real resource need; no per-product copies, category trees, generated
   bundles, or duplicated installation guides.
 - Back up real files, not links into one machine's installed skill directories.
-- Maintain one source per skill for all supported products. Resolve installed
-  aliases and deduplicate by real path before comparing or copying. Shared
-  instructions belong in SKILL.md; substantial product-specific guidance belongs
-  in references/hosts/<host>.md within that skill. Optional host metadata belongs
-  in sidecars such as agents/openai.yaml. Do not fork entire skills by product.
+- Maintain one Codex-adapted copy per skill in this repository. Resolve installed
+  aliases and deduplicate by real path before comparing or copying. Codex
+  workflow instructions belong in SKILL.md with supporting references inside the
+  skill. Optional Codex metadata belongs in agents/openai.yaml. Do not add
+  alternate-host copies or adapters.
 
 ## Installation and portability
 
-Document and support global user-level installation only, across projects.
+Document and support global user-level installation for Codex only, across projects.
 Use home-relative or resolved paths, never one person's concrete home path.
-The installer uses `~/.agents/skills` for Codex/Cursor and `~/.claude/skills` for
-Claude Code. Verify official documentation before changing product discovery
-guidance. Both discovery roots link to the same repository files. Do not add
-redundant Codex copies merely to mirror a local alias arrangement. Do not
+The installer links repository skills only into Codex’s documented user-level
+`~/.agents/skills` location. Verify official documentation before changing
+Codex discovery guidance. Do not create or modify other products’ installation
+roots, or add redundant Codex copies to mirror local source aliases. Do not
 silently overwrite or remove existing installations. Preserve conflict checks,
 dry-run behavior, repeatable installation and working paths containing spaces.
 Document setup, update, backup, removal and the Windows/WSL limitations in README.
@@ -81,7 +96,7 @@ Document setup, update, backup, removal and the Windows/WSL limitations in READM
 Keep required skills as siblings. Resolve supporting resources relative to the
 skill's real directory. Allow standalone dependency names as well as a plugin
 namespace when applicable. Do not assume a tool, connector, account, or plugin
-exists in every agent product. Preserve invocation policies and workflow gates.
+exists in every Codex session. Preserve invocation policies and workflow gates.
 
 ## Backups and changes
 
@@ -124,7 +139,8 @@ reuse adequate reviews instead of adding repetitive approval gates.
 For a request referring to earlier project conversations, read the complete
 relevant conversations, including corrections, later decisions and outcomes;
 paginate as needed. Titles and summaries are retrieval aids, not sufficient
-requirements evidence. Reconcile durable requirements into these policies and
+requirements evidence. Apply current corrections over superseded instructions.
+Reconcile durable requirements into these policies and
 README/SOURCES as appropriate. Keep private transcripts and work evidence out
 of the repository. Do not promote a one-time action, superseded direction or
 old approval into permanent authority.

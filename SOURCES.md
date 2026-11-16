@@ -23,8 +23,8 @@ state. The maintainer confirmed authorship of `work-detective`.
 
 The selected custom sources now live in `~/.agents/skills`. Both Codex and
 Claude personal aliases resolve to those same real directories; each source
-was compared once. The repository preserves that shared design with one
-physical folder per skill and host references where needed. Installed sources,
+was compared once. Repository copies are adapted only for Codex, with one
+physical folder per skill and Codex references where needed. Installed sources,
 symlinks and private runtime state are not migrated by this synchronization.
 
 ## Required third-party skills
@@ -39,16 +39,21 @@ symlinks and private runtime state are not migrated by this synchronization.
 
 Only these five required skill folders are bundled, with their supplied license
 files. Ponytail hooks, commands, optional audit/debt/help skills, and plugin runtime are not required
-by the review skill and are excluded. All five third-party SKILL.md files were
-copied without edits.
+by the review skill and are excluded. Four third-party SKILL.md files remain
+verbatim snapshots. Find Skills has a documented Codex-only installation
+adaptation; its upstream provenance and license remain intact.
 
 The local Skills CLI lock records `find-skills` from `vercel-labs/skills`, path
 `skills/find-skills/SKILL.md`, installed/updated 2026-10-16, with folder hash
 `76a98a285cb0434f3d39e1a873823556330e398b`. This is a folder hash, **not** a Git
-commit. The installed SKILL.md SHA-256 is
+commit. The original upstream SKILL.md SHA-256 is
 `c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f`. Its exact upstream commit was not recorded. The upstream
 MIT license was retrieved on 2026-11-03; upstream HEAD at retrieval was
 `7a5e920bead4b1039a6d6df5d7e1163b7b09423a`, not an asserted skill snapshot revision.
+
+The Codex-adapted Find Skills entrypoint SHA-256 is
+`5109c4994c9d566890bbde9153c796a72da53c40817643f89cbfbdfd82bc8a31`. Only its installation/update instructions and installation example
+were changed; license and upstream discovery guidance are retained.
 
 No repository-wide license is imposed. Each supplied license applies to its
 own material; absence of a license is not a new redistribution grant.
@@ -80,18 +85,18 @@ own material; absence of a license is not a new redistribution grant.
 
 On 2026-11-16, synchronized the eleven custom skills from the unified shared
 source, including the new `project-manager`. Retained the five required
-third-party dependencies. Host-neutral workflows keep Codex and Claude details
-in the owning skill’s host references, with Codex metadata as sidecars.
-The existing installer already links both discovery roots to the same repository
-files; no installer behavior change was needed. Official discovery guidance
-for Codex, Claude Code and Cursor was rechecked through the README links.
+third-party dependencies. Repository workflows are adapted only for Codex,
+with Codex metadata as sidecars. Other-host execution references are excluded.
+The installer now targets only Codex’s documented `~/.agents/skills` location;
+it leaves other products’ existing installations untouched. Codex discovery
+guidance was verified through the official README link.
 
 Refreshed `openai-docs/SKILL.md` and `agents/openai.yaml` verbatim from the
 installed system snapshot. Its exact upstream revision remains unknown.
 `skill-creator` remains identical to the installed snapshot. The installed
 `find-skills` adds a machine-specific move/link instruction; the repository
-retains its previously recorded upstream snapshot and conflict-safe installation
-guidance instead. This omission avoids prescribing a local migration to others.
+omits that local migration instruction and adapts installation guidance to target
+Codex explicitly. Discovery examples and upstream attribution remain intact.
 
 
 On 2026-11-10, refreshed the retained custom workflows from active installed
@@ -127,8 +132,8 @@ verify it without modifying the upstream manifest.
 
 Their necessary references, scripts, UI metadata, icons and supplied license
 texts remain together; no entire system-skill collection or vendor plugin was
-copied. These snapshots include Codex-specific guidance; other products must
-use their own exposed capabilities and cannot assume Codex tools are present.
+copied. The collection targets Codex; retained third-party provenance and
+research sources do not establish support for execution in other products.
 
 ## Packaging changes
 
@@ -148,8 +153,13 @@ use their own exposed capabilities and cannot assume Codex tools are present.
   merge/fork authority, global installation, source ownership and privacy.
   Historical transcripts, ticket defaults and one-time approvals are not bundled.
 
-- Preserved the unified source design and both hosts’ reference files; removed
-  concrete home paths and personal host assumptions from repository copies.
+- Adapted unified local sources to Codex-only repository workflows. Removed
+  other-host execution routes and Claude-specific agent/browser/skill APIs.
+  Kept authorized Claude history as evidence readable from Codex, not a host
+  requirement. Installed multi-product originals remain untouched.
+- Restricted the installer to Codex and updated its temporary-profile tests.
+  Find Skills routes authorized installations through Codex’s available installer
+  or verified Codex-specific CLI options, avoiding multi-agent default installs.
 - Added Project Manager with a host-independent private journal under
   `$XDG_STATE_HOME/project-manager/`, falling back to
   `~/.local/state/project-manager/`. No journal or work evidence is bundled.

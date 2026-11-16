@@ -27,27 +27,28 @@ class InstallTests(unittest.TestCase):
     def test_links_are_global_repeatable_and_include_dependencies(self):
         install(self.repo, self.profile)
         install(self.repo, self.profile)
-        for product in (".agents", ".claude"):
-            for name in ("custom", "dependency"):
-                target = self.profile / product / "skills" / name
-                self.assertTrue(target.is_symlink())
-                self.assertEqual(target.resolve(), (self.repo / "skills" / name).resolve())
+        for name in ("custom", "dependency"):
+            target = self.profile / ".agents/skills" / name
+            self.assertTrue(target.is_symlink())
+            self.assertEqual(target.resolve(), (self.repo / "skills" / name).resolve())
+        for product in (".claude", ".cursor", ".codex"):
+            self.assertFalse((self.profile / product).exists())
         self.assertFalse((self.repo / ".agents").exists())
         (self.repo / "skills/custom/SKILL.md").write_text("Updated\n")
-        self.assertEqual((self.profile / ".claude/skills/custom/SKILL.md").read_text(), "Updated\n")
+        self.assertEqual((self.profile / ".agents/skills/custom/SKILL.md").read_text(), "Updated\n")
 
     def test_dry_run_writes_nothing(self):
         install(self.repo, self.profile, dry_run=True)
         self.assertFalse(self.profile.exists())
 
     def test_existing_directory_prevents_all_writes(self):
-        existing = self.profile / ".claude/skills/custom"
+        existing = self.profile / ".agents/skills/custom"
         existing.mkdir(parents=True)
         (existing / "SKILL.md").write_text("Local edits\n")
         with self.assertRaises(FileExistsError):
             install(self.repo, self.profile)
         self.assertEqual((existing / "SKILL.md").read_text(), "Local edits\n")
-        self.assertFalse((self.profile / ".agents").exists())
+        self.assertFalse((self.profile / ".agents/skills/dependency").exists())
 
     def test_dangling_link_is_preserved(self):
         target = self.profile / ".agents/skills/custom"
@@ -56,14 +57,25 @@ class InstallTests(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             install(self.repo, self.profile)
         self.assertEqual(target.readlink(), self.root / "missing")
-        self.assertFalse((self.profile / ".claude").exists())
+        self.assertFalse((self.profile / ".agents/skills/dependency").exists())
 
     def test_parent_file_prevents_all_writes(self):
         self.profile.mkdir()
-        (self.profile / ".claude").write_text("Keep me\n")
+        (self.profile / ".agents").write_text("Keep me\n")
         with self.assertRaises(FileExistsError):
             install(self.repo, self.profile)
-        self.assertFalse((self.profile / ".agents").exists())
+        self.assertEqual((self.profile / ".agents").read_text(), "Keep me\n")
+
+    def test_other_product_paths_are_ignored_and_preserved(self):
+        existing = self.profile / ".claude/skills/custom"
+        existing.mkdir(parents=True)
+        (existing / "SKILL.md").write_text("Local edits\n")
+        (self.profile / ".cursor").write_text("Unrelated path\n")
+        install(self.repo, self.profile)
+        self.assertEqual((existing / "SKILL.md").read_text(), "Local edits\n")
+        self.assertEqual((self.profile / ".cursor").read_text(), "Unrelated path\n")
+        self.assertFalse((self.profile / ".claude/skills/dependency").exists())
+        self.assertTrue((self.profile / ".agents/skills/dependency").is_symlink())
 
 
 if __name__ == "__main__":

@@ -1,5 +1,27 @@
 # Repository instructions
 
+## Highest priority: personal information and internal reuse
+
+Never include the maintainer’s personal information in repository skill content
+or bundled resources. This requirement takes precedence over copying an
+installed source verbatim. Remove personal names and author metadata, emails,
+usernames, account identifiers, concrete home paths, private links, named
+colleagues/audiences, personal defaults, real work examples, saved approvals,
+credentials, transcripts and runtime memory from repository copies. Preserve
+required third-party copyright and license notices.
+
+Adapt the skills for reusable internal team use: obtain identity, organization,
+accounts, projects, audience, timezone, repositories and permissions from the
+current authorized environment. Use fictional examples and portable paths; do
+not make the maintainer’s private setup the team default. Keep required private
+runtime state outside the checkout and installed skill folders.
+
+Apply these changes only to repository copies. Preserve the installed originals
+and their personal configuration unless installation or migration is explicitly
+requested. Before every publication, inspect the complete included file set for
+personal information and private state, including metadata, examples, scripts
+and assets. Resolve any finding before publication and report validation limits.
+
 ## Scope and ownership
 
 The canonical public repository is `pfonsecamoncada/Skills`, owned by its

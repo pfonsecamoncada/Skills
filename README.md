@@ -8,6 +8,12 @@ Skills maintained in
 belong there and are excluded here. Third-party skills are included only when
 one of these custom skills depends on them.
 
+The collection is adapted for internal team use. Repository skills must never
+contain the maintainer’s personal information or private working state. Each
+team supplies its own identities, accounts, projects, audience and preferences
+through current authorized context. Privacy takes priority over verbatim source
+copying; installed originals retain their own personal configuration.
+
 ## Collection
 
 | Skill | Ownership | Purpose |

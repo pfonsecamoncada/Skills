@@ -132,6 +132,10 @@ use their own exposed capabilities and cannot assume Codex tools are present.
 
 ## Packaging changes
 
+- Personal-information exclusion is the highest-priority repository policy.
+  Internal teams supply their own authorized identity, account and project
+  context; repository copies do not inherit the maintainer’s personal setup.
+
 - Imported Work Detective’s read-only local session helper from the shared source
   (source SHA-256 `7654b7db6d4c56c8e9da37b038f765b57f55fdba8d5c13376760f1915baaf374`).
   Adapted the repository copy to honor `CODEX_HOME`, select a versioned history

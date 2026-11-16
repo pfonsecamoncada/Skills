@@ -13,6 +13,7 @@ one of these custom skills depends on them.
 | Skill | Ownership | Purpose |
 | --- | --- | --- |
 | [coordinator](skills/coordinator) | Custom | Coordinate the overall outcome across specialist skills and bounded agents. |
+| [project-manager](skills/project-manager) | Custom | Recover pending work and keep a private continuity journal across products. |
 | [skill-improver](skills/skill-improver) | Custom | Review and improve skill intent, strategy, and instructions. |
 | [mad-senior](skills/mad-senior) | Custom | Review consequential non-code decisions and evidence. |
 | [development-orchestrator](skills/development-orchestrator) | Custom | Coordinate skills, reviews, approvals, and delivery. |
@@ -28,8 +29,11 @@ one of these custom skills depends on them.
 | [skill-creator](skills/skill-creator) | Third-party dependency | Author and validate capabilities when Coordinator needs them. |
 | [openai-docs](skills/openai-docs) | Third-party dependency | Verify Codex configuration and client guidance for capability creation. |
 
-Everything lives directly under `skills/<skill-name>/`. Supporting files stay
-with their skill. There are no product-specific copies or category directories.
+Everything lives directly under `skills/<skill-name>/`. Each folder is the
+single maintained source for every product. Shared instructions stay in
+`SKILL.md`; longer product-specific guidance lives in `references/hosts/` inside
+the owning skill, and optional Codex UI metadata stays in `agents/openai.yaml`.
+There are no separate product copies or category directories.
 [SOURCES.md](SOURCES.md) records origins, dependencies, exclusions, and packaging
 changes. [AGENTS.md](AGENTS.md) defines how to maintain this repository.
 
@@ -62,8 +66,10 @@ python3 install.py
 
 If you already have a clone, run the last two commands from that clone instead.
 The installer links each complete skill folder into the two user-level roots.
-Codex and Cursor share one root; Claude Code uses the other. Dependencies are
-included automatically. Links point to the clone, so keep it in place.
+Codex and Cursor discover `~/.agents/skills`; Claude Code discovers
+`~/.claude/skills`. Both roots point to the same physical files in this clone,
+so an edit is shared across products. Dependencies are included automatically.
+Keep the clone in place; no additional `~/.codex/skills` copy is needed.
 
 Existing links to this clone are accepted on reruns. An existing directory,
 different link, or broken link with the same name stops installation before any
@@ -98,13 +104,14 @@ py -3 install.py
 Native Windows symlinks require suitable permissions (commonly Developer Mode).
 If symlinks are unavailable, copy each complete `skills/<skill-name>` directory
 into `%USERPROFILE%\.agents\skills\` and `%USERPROFILE%\.claude\skills\` after
-checking for conflicts. Keep all fifteen folders together in each location so
-relative dependency references resolve. Copies must be updated manually.
+checking for conflicts. Keep all sixteen folders together in each location so
+relative dependency references resolve. Copies must be updated manually and do not provide the symlink installation’s
+single source of truth.
 
 ### Verify and use
 
 Start a fresh session in each product, open an unrelated project, and ask it to
-list the available skills. Confirm the ten custom skills and five dependencies
+list the available skills. Confirm the eleven custom skills and five dependencies
 appear. For example: "Use requirement-collector to organize these requirements."
 Codex also supports `$skill-name`; Claude Code and Cursor support `/skill-name`.
 
@@ -122,6 +129,12 @@ official source and verify it before continuing that workflow. Install optional
 tools only when needed. This repository bundles the five required third-party
 skill folders, not their entire upstream packages, command-line tools, or
 binaries. Their licenses and sources are recorded in SOURCES.md.
+
+Project Manager stores its journal outside the checkout in private user state,
+shared across hosts. Jira memory and the development skill inventory also belong
+in private user state. None is created by this installer. Work Detective’s
+optional Python helper reads authorized local Claude/Codex session stores; its
+local coverage is not a substitute for unavailable remote chat history.
 
 The skills resolve identity, assignee, audience, timezone, and service choices
 from the current user's context. No maintainer account, personal reporting
@@ -147,6 +160,12 @@ skills, compare their active sources and apply privacy and portability changes
 only to repository copies. Review `git diff` before committing and pushing backups. Do not copy entire installed-skill or plugin-cache directories
 into the repository.
 
+For separately maintained installations, resolve `~/.agents/skills` and any
+`~/.codex/skills` / `~/.claude/skills` aliases before comparing sources. When
+they resolve to the same folder, back it up once. Retain shared instructions
+and host references together; adapt repository copies for portability without
+rewriting the installed originals.
+
 To uninstall, remove only the per-skill symlinks that point into this clone from
 `~/.agents/skills/` and `~/.claude/skills/`. Keep unrelated skills and private
 runtime state. Remove the clone only after its links are gone and any edits are
@@ -157,11 +176,12 @@ removing those specific copied folders.
 
 ```sh
 python3 -m unittest -v test_install.py
+python3 -m unittest discover -s skills/work-detective/scripts -p 'test_*.py' -v
 git diff --check
 ```
 
-The installer tests use temporary directories and do not touch installed
-skills. Also check each changed skill's frontmatter, local references, dependency
+The installer and session-helper tests use temporary directories and do not
+touch installed skills or real chat history. Also check each changed skill's frontmatter, local references, dependency
 closure, and provenance. Keep runtime memory, credentials, work reports, and
 machine-specific absolute paths out of backups. Existing per-skill licenses are
 preserved; see [SOURCES.md](SOURCES.md) for license scope.

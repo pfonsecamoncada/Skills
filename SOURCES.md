@@ -1,6 +1,6 @@
 # Skill sources and dependencies
 
-Initially imported on 2026-11-03 and synchronized on 2026-11-10 from the
+Initially imported on 2026-11-03 and synchronized on 2026-11-16 from the
 maintainer's active installed skills. This is a curated
 backup of reusable instructions, not a dump of installed packages or runtime
 state. The maintainer confirmed authorship of `work-detective`.
@@ -9,21 +9,23 @@ state. The maintainer confirmed authorship of `work-detective`.
 
 | Skill | Active source at synchronization | Declared version/license |
 | --- | --- | --- |
-| coordinator | `~/.codex/skills/coordinator` | 1.3; no license declared |
-| slack-message-drafter | `~/.codex/skills/slack-message-drafter` | No version or license declared |
-| skill-improver | `~/.codex/skills/skill-improver` | No version or license declared |
-| mad-senior | `~/.codex/skills/mad-senior` | 1.3; no license declared |
-| development-orchestrator | `~/.codex/skills/development-orchestrator` | 2.2.0; MIT; bundled LICENSE retained with a non-personal contributor attribution |
+| coordinator | `~/.agents/skills/coordinator` | 1.3; no license declared |
+| slack-message-drafter | `~/.agents/skills/slack-message-drafter` | No version or license declared |
+| skill-improver | `~/.agents/skills/skill-improver` | No version or license declared |
+| mad-senior | `~/.agents/skills/mad-senior` | 1.3; no license declared |
+| development-orchestrator | `~/.agents/skills/development-orchestrator` | 2.2.0; MIT; bundled LICENSE retained with a non-personal contributor attribution |
 | development-supporter | `~/.agents/skills/development-supporter` | 4.1; Apache-2.0 declared in frontmatter |
 | jira-ticket-supporter | `~/.agents/skills/jira-ticket-supporter` | No version or license declared |
 | requirement-collector | `~/.agents/skills/requirement-collector` | No version or license declared |
 | progress-summary | `~/.agents/skills/progress-summary` | No version or license declared |
+| project-manager | `~/.agents/skills/project-manager` | No version or license declared |
 | work-detective | `~/.agents/skills/work-detective` | No version or license declared |
 
-Codex links for the shared skills resolve to `~/.agents/skills`. Older Claude
-copies differed for development-supporter, jira-ticket-supporter, and
-requirement-collector. The active Codex/shared sources above were selected;
-those older copies and all installed originals were left untouched.
+The selected custom sources now live in `~/.agents/skills`. Both Codex and
+Claude personal aliases resolve to those same real directories; each source
+was compared once. The repository preserves that shared design with one
+physical folder per skill and host references where needed. Installed sources,
+symlinks and private runtime state are not migrated by this synchronization.
 
 ## Required third-party skills
 
@@ -65,6 +67,9 @@ own material; absence of a license is not a new redistribution grant.
 - `skill-improver` uses `skill-creator` when available, with direct validation
   fallback. `mad-senior` routes executable-code questions to `ponytail-review`.
 - `progress-summary` requires sibling `work-detective`.
+- `coordinator` routes current-work refreshers to `project-manager`, which uses
+  `jira-ticket-supporter` and the sibling `work-detective` session helper. Its
+  journal is private user state, not a bundled resource.
 - The remaining skills introduce no further required named skill dependency.
   Optional host document/spreadsheet/browser, plugin discovery and API-key
   capabilities are not vendored. In particular, OpenAI Docs uses
@@ -73,11 +78,27 @@ own material; absence of a license is not a new redistribution grant.
 
 ## Synchronization evidence
 
+On 2026-11-16, synchronized the eleven custom skills from the unified shared
+source, including the new `project-manager`. Retained the five required
+third-party dependencies. Host-neutral workflows keep Codex and Claude details
+in the owning skill’s host references, with Codex metadata as sidecars.
+The existing installer already links both discovery roots to the same repository
+files; no installer behavior change was needed. Official discovery guidance
+for Codex, Claude Code and Cursor was rechecked through the README links.
+
+Refreshed `openai-docs/SKILL.md` and `agents/openai.yaml` verbatim from the
+installed system snapshot. Its exact upstream revision remains unknown.
+`skill-creator` remains identical to the installed snapshot. The installed
+`find-skills` adds a machine-specific move/link instruction; the repository
+retains its previously recorded upstream snapshot and conflict-safe installation
+guidance instead. This omission avoids prescribing a local migration to others.
+
+
 On 2026-11-10, refreshed the retained custom workflows from active installed
 sources and added the custom `slack-message-drafter`. Coordinator’s implementation
 route now requires the standalone `ponytail` skill, so that skill is bundled
 with the existing plugin license. The four existing third-party snapshots still
-match their installed sources. The collection has ten custom skills and five
+match their installed sources. At that synchronization, the collection had ten custom skills and five
 required dependencies. General catalog routes (including optional Ponytail
 audit/debt commands and document/browser tools) do not require bundling every
 optional task capability. Private state and installed originals remain excluded.
@@ -92,12 +113,13 @@ Coordinator, Skill Improver, and Mad Senior are new custom additions.
 
 The two new system dependencies were copied from their active installed
 folders. No source Git revision was recorded there, so these are identified by
-installed snapshot rather than an invented upstream commit. Entrypoint SHA-256:
+installed snapshot rather than an invented upstream commit. Current bundled
+entrypoint SHA-256 (OpenAI Docs refreshed 2026-11-16):
 
 | Snapshot | SKILL.md SHA-256 |
 | --- | --- |
 | skill-creator | `6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66` |
-| openai-docs | `aa6829e21df2223167c85d2e49b6337a7345c84c1033f1ec10182c7882b36d45` |
+| openai-docs | `208bb19dcdfa7cdcae5e6766ff3fd6bf7268d235c12a426869c8151a33e5c3ab` |
 
 Ponytail retains its upstream `argument-hint` frontmatter. The bundled generic
 validator does not recognize that field; YAML parsing and the source comparison
@@ -110,8 +132,33 @@ use their own exposed capabilities and cannot assume Codex tools are present.
 
 ## Packaging changes
 
-- Retained the original six custom workflows and added three custom workflows,
-  keeping their required supporting files together.
+- Imported Work Detective’s read-only local session helper from the shared source
+  (source SHA-256 `7654b7db6d4c56c8e9da37b038f765b57f55fdba8d5c13376760f1915baaf374`).
+  Adapted the repository copy to honor `CODEX_HOME`, select a versioned history
+  database read-only, identify exported transcript formats from their contents,
+  and report unavailable sources, unsupported schemas and missing transcripts.
+  Added synthetic fixture tests; source text remains filtered/truncated and
+  local history does not establish remote/account-wide coverage.
+- Reconciled repository policies against all five earlier project conversations,
+  preserving the final decisions on personal-repository PR delivery, separate
+  merge/fork authority, global installation, source ownership and privacy.
+  Historical transcripts, ticket defaults and one-time approvals are not bundled.
+
+- Preserved the unified source design and both hosts’ reference files; removed
+  concrete home paths and personal host assumptions from repository copies.
+- Added Project Manager with a host-independent private journal under
+  `$XDG_STATE_HOME/project-manager/`, falling back to
+  `~/.local/state/project-manager/`. No journal or work evidence is bundled.
+- Generalized the team’s ticket-context repository requirement to resolve the
+  current user’s authorized repository and its README before use. No private
+  organization repository or historical ticket content is bundled.
+- Refreshed Codex-specific dependency guidance while retaining standalone skill
+  names alongside plugin namespaces and the exclusive Jira writer boundary.
+
+
+- The 2026-11-06 package retained the original six custom workflows and added
+  three; later synchronizations added Slack Message Drafter and Project Manager.
+  Each keeps its required supporting files together.
 - Removed maintainer names and author metadata, named audience/colleagues,
   concrete timezone, personal email-provider and involvement preferences, and
   historical approval claims. Examples now use fictional projects and roles.
@@ -143,7 +190,7 @@ and team-specific choices now come from the current user.
 
 The live inventory of
 [Momentum Standard Skills](https://github.com/MomentumMPS/standards-momentum-skills/tree/main/skills)
-was checked on 2026-11-10. Its five skills remain maintained there:
+was checked on 2026-11-16. Its five skills remain maintained there:
 
 - momentum-architecture-audit
 - momentum-audit-skill-creator

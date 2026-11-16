@@ -27,7 +27,7 @@ Read [references/skill-discovery.md](references/skill-discovery.md) and load the
 
 For each selected skill, record its resolved source, version when available, role, required tools, input, expected output, and approval boundaries. Read its current SKILL.md and the references needed for that role. Follow local relative links from that skill's actual directory. Honor an explicit user-supplied source; otherwise prefer the active host catalog and applicable project instructions. Do not silently switch to a differently governed copy because its version is higher.
 
-Select one workflow owner and only the specialists needed. A skill is an instruction source, not automatically a separate agent. Use internal subagents under the delegation rules below; do not create user-owned Codex chats without an explicit user request. Do not send external messages, install skills or schedule monitoring merely to orchestrate. Monitoring here means following the active workflow unless background work was separately requested.
+Select one workflow owner and only the specialists needed. A skill is an instruction source, not automatically a separate agent. Use internal subagents under the delegation rules below; do not create user-owned chats or sessions (Codex chats, Claude Code sessions) without an explicit user request. Do not send external messages, install skills or schedule monitoring merely to orchestrate. Monitoring here means following the active workflow unless background work was separately requested.
 
 ## Resolve execution capabilities without taking over the user's session
 

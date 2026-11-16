@@ -6,7 +6,7 @@ Read only after solution routing selects this path. Shared authorization, risk-r
 
 Resolve the requested outcome through evidence, explanation, existing functionality or an authorized action in an existing external system. This path creates no repository or Git delivery artifacts.
 
-- Do not fetch, clone, create/switch branches, create worktrees, stage, commit, cherry-pick, push or create PRs. Do not edit repository files or git metadata, including specs, reports, `.codex/jira.json` or evidence-only commits.
+- Do not fetch, clone, create/switch branches, create worktrees, stage, commit, cherry-pick, push or create PRs. Do not edit repository files or git metadata, including specs, reports, `.claude/jira.json`, `.codex/jira.json` or evidence-only commits.
 - Read existing checkouts, history, logs and branch/PR information when useful. A dirty checkout does not block investigation and never justifies stash/reset/cleanup.
 - Keep evidence in chat, temporary files outside repositories or authorized Jira updates. No dependency installation, app startup, build or regression suite is mandatory. Use existing environments and read-only checks; report gaps if they cannot establish the outcome.
 - Temporary read-only analysis/query helpers outside repositories are allowed; validate their results without manufacturing a committed script or test-suite deliverable.

@@ -29,9 +29,11 @@ Typical discovery roots are starting points to verify, not promises about the ac
 
 | Source | Places to inspect when accessible |
 | --- | --- |
-| Codex/shared user skills | Session catalog paths, the configured Codex home skills directory, `~/.codex/skills`, `~/.agents/skills`, and applicable `.agents/skills` directories in the project hierarchy. |
+| Shared Agent Skills root | `~/.agents/skills` (shared user-level source; host roots below may symlink into it) and applicable project `.agents/skills` directories. |
+| Codex user skills | Session catalog paths, the configured Codex home skills directory (`~/.codex/skills`). |
 | Codex system/plugin skills | Catalog-provided system and plugin roots; confirmed admin paths such as `/etc/codex/skills`; plugin listing metadata for installed/enabled versions. |
-| Claude Code | `~/.claude/skills`, applicable project `.claude/skills`, explicitly configured additional/managed directories, and skill roots of installed plugins. Inspect legacy `.claude/commands` or agents only as separate capabilities when relevant. |
+| Claude Code user/project skills | Session catalog, `~/.claude/skills`, applicable project `.claude/skills` in the project hierarchy, and explicitly configured additional/managed directories. Inspect legacy `.claude/commands` or agents (`~/.claude/agents`) only as separate capabilities when relevant. |
+| Claude Code built-in/plugin skills | Catalog-provided namespaced skills (such as `anthropic-skills:*`, `ponytail:*`), skill roots of installed plugins, and `ListPlugins` metadata for installed/enabled versions. |
 | Other products | Use their installed configuration, documented listing APIs, CLI help, or an appropriate discovery skill to locate actual roots. Do not assume Codex or Claude conventions apply. |
 | Another machine | Use an available authorized host connection and its catalog/read-only file tools, or a user-supplied exported inventory. Identify host and product on every result. |
 
@@ -41,7 +43,7 @@ Files in a plugin marketplace checkout or an old cache prove availability on dis
 
 Use installed `find-skills` when no adequate local candidate exists or the user asks for broader discovery. Follow its current search procedure, including the skills.sh leaderboard before CLI search, and inspect the actual candidate instructions/source before recommending it. Popularity is supporting evidence, not a substitute for fit, permission boundaries and compatibility. Check current CLI help before using commands or flags; `npx skills list` can supplement installed-skill discovery and `npx skills find <query>` searches the ecosystem. A public search does not inventory a private remote machine.
 
-If find-skills cannot access a requested product/host, look for an installed discovery, remote-management or plugin-management capability suited to that environment. Use it only within available connection permissions. If no access exists, request the specific host connection, skill root, or exported inventory needed while continuing local analysis. Do not invent remote availability, automatically connect to unknown hosts, or promise access to Claude account/cloud skills from a local directory alone.
+If find-skills cannot access a requested product/host, look for an installed discovery, remote-management or plugin-management capability (Claude Code: `ListPlugins`/`SearchPlugins`) suited to that environment. Use it only within available connection permissions. If no access exists, request the specific host connection, skill root, or exported inventory needed while continuing local analysis. Do not invent remote availability, automatically connect to unknown hosts, or promise access to Claude account/cloud skills from a local directory alone.
 
 Distinguish discovery, compatibility inspection, installation and execution. Searching does not authorize installing, updating, removing or syncing skills, starting another agent product, or executing scripts/hooks from a discovered skill. Propose the concrete source, destination, dependencies and required changes when installation/adaptation is needed; honor existing user authorization without redundant confirmation. Use an appropriate installer/authoring skill for authorized changes.
 

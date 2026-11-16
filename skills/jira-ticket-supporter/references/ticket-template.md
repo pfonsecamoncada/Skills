@@ -73,6 +73,10 @@ Include a source or related-work link only when it helps the reader act, underst
 - Avoid implementation plans, file inventories, schema dumps, and speculative architecture in ordinary tickets. Keep a technical constraint if omitting it would change the requested outcome, security, data preservation, or integration contract. Use the smallest explanation needed by the intended assignee.
 - Keep sensitive personal data and secrets out. Use sanitized examples when examples are necessary.
 
+### LLM Context section
+
+When a ticket has a verified context file in the user or team's established context repository (see its README), end the description with a heading `LLM Context` and one line linking `tickets/<KEY>.md` (link text: `<KEY> context file`, destination: the verified file URL). Nothing else goes in that section; detail that does not fit the description limits belongs in the file, not the ticket. Before adding the link, verify the file exists through the supported repository API or CLI and use its actual URL; do not assume an owner, branch, host or reader access. Adding this section to an existing ticket is a narrow description edit: preserve all other content. The section counts toward the word limit (about four words).
+
 For chat drafts, use Markdown links with descriptive labels. In Jira ADF, create a native link mark on descriptive text. Never embed `[label](url)` or `[label|url]` as literal ADF text. If only plain text is supported, use a descriptive label followed by the URL on its own line, only when useful; avoid glued-on punctuation. Do not invent missing URLs or claim that readers have access unless verified.
 
 ## Comments

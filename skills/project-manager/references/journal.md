@@ -1,0 +1,20 @@
+# Continuity journal
+
+Use one compact, private journal across sessions. Honor an established user-selected path. Otherwise use `$XDG_STATE_HOME/project-manager/work-journal.md` when configured, or `~/.local/state/project-manager/work-journal.md`. Use the same journal across hosts; never create a per-host copy. Preserve an existing journal at another location until the user authorizes migration, and reconcile rather than overwrite if both locations contain state. Do not store work history inside the installed skill or a repository by default. This location is a convention, not proof that it is writable: follow filesystem permissions and report a blocked write without pretending it persisted. If the user declines persistence, use session context only.
+
+On first use, read the path if it exists and create it only after a real refresher has produced facts worth retaining. Skill installation and synthetic tests do not initialize real work history. Record the selected path in the response when first created or changed so the user can find it again. Never silently switch to a different journal when access fails.
+
+Keep the following information, using ordinary Markdown rather than a database or custom script:
+
+- **Scope and verification:** user-confirmed projects/source restrictions, verified identity references without secrets, relevant sprint/board, as-of time and timezone, source coverage and failures. Separate durable user preferences from inferred scope for one session. Query bounds explain what was checked, not what may be forgotten.
+- **Open work:** stable Jira key/link or no-ticket outcome ID, short purpose and requested endpoint; recorded Jira status separately from last verified milestone; remaining step; blocker and evidenced owner; next action; evidence links with observation dates; most recent successful verification and any later failed refresh. Record explicit pauses and material user constraints.
+- **Decisions and restart point:** only decisions that change future action, approved exceptions, unresolved conflicts, and the next place to resume. Label recommendations as recommendations. Do not retain vague standing write authority or treat a previous approval as covering new targets/deltas.
+- **Recently completed:** a brief outcome, completion evidence and date. Keep this separate from open work so repeated refreshes do not resurrect it without new evidence. If the deliverable is complete but a Jira update, closure decision or other agreed follow-up remains, retain that follow-up under open work linked to the completed outcome until it is verified resolved or explicitly declined. Do not equate a completed deliverable with completed administration.
+
+Update by stable identity. Re-read immediately before saving, preserve unrelated/manual additions, and reconcile concurrent changes; if reconciliation is ambiguous, retain the conflicting entries and report it rather than overwriting. Use a narrow edit and read-back. Do not maintain competing copies or replace the whole journal from a partial source scan.
+
+An item missing from today's query is not completed. Retain its last-known state with the verification gap until evidence establishes completion, cancellation, duplication or a user scope decision. Deduplicate only when evidence establishes the same outcome; preserve distinct review/deployment obligations and useful source links. Never refresh an old fact's verification timestamp merely because it was copied into today's journal.
+
+Keep resolved history concise: summarize older completed outcomes while retaining their identity, date and decisive evidence link when useful to prevent rediscovery. Never prune unresolved work to meet a length target. Remove superseded noise, not unfinished commitments or meaningful decisions. No full chat transcripts, raw API dumps, credentials, unnecessary account identifiers or unrelated personal data.
+
+The journal is a cache. Recheck volatile facts before recommending consequential actions, especially closure or publication. If evidence cannot be refreshed, explicitly carry last-known dates and uncertainty into both the journal and the answer.

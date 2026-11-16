@@ -2,6 +2,13 @@
 
 ## Scope and ownership
 
+The canonical public repository is `pfonsecamoncada/Skills`, owned by its
+maintainer. `MomentumMPS/momentum-skills` is a separate fork, not the default
+publication target; `MomentumMPS/standards-momentum-skills` is the separate
+standards collection. Preserve repository ownership, visibility and existing
+maintainer access. Transfers, renames, fork synchronization and permission
+changes require authorization for that specific action.
+
 This repository backs up the maintainer's custom skills that are not maintained
 in `MomentumMPS/standards-momentum-skills`. Compare that repository's actual
 inventory before adding or moving a skill; do not classify solely by its name.
@@ -31,6 +38,11 @@ Suggest optional capabilities when relevant rather than installing them all.
   only for a real resource need; no per-product copies, category trees, generated
   bundles, or duplicated installation guides.
 - Back up real files, not links into one machine's installed skill directories.
+- Maintain one source per skill for all supported products. Resolve installed
+  aliases and deduplicate by real path before comparing or copying. Shared
+  instructions belong in SKILL.md; substantial product-specific guidance belongs
+  in references/hosts/<host>.md within that skill. Optional host metadata belongs
+  in sidecars such as agents/openai.yaml. Do not fork entire skills by product.
 
 ## Installation and portability
 
@@ -38,7 +50,11 @@ Document and support global user-level installation only, across projects.
 Use home-relative or resolved paths, never one person's concrete home path.
 The installer uses `~/.agents/skills` for Codex/Cursor and `~/.claude/skills` for
 Claude Code. Verify official documentation before changing product discovery
-guidance. Do not silently overwrite or remove existing installations.
+guidance. Both discovery roots link to the same repository files. Do not add
+redundant Codex copies merely to mirror a local alias arrangement. Do not
+silently overwrite or remove existing installations. Preserve conflict checks,
+dry-run behavior, repeatable installation and working paths containing spaces.
+Document setup, update, backup, removal and the Windows/WSL limitations in README.
 
 Keep required skills as siblings. Resolve supporting resources relative to the
 skill's real directory. Allow standalone dependency names as well as a plugin
@@ -64,28 +80,100 @@ packaging and portability changes in SOURCES.md.
 Do not apply a blanket license to third-party or unlicensed skills. Preserve
 existing notices and obtain actual provenance rather than inventing authorship,
 versions, or permission. Add only dependencies required by the retained skills.
+Disclose existing license gaps without inventing a license or presenting the
+whole collection as freely licensed. A synchronization does not itself require
+a relicensing decision.
 
 Before delivery, verify the skill inventory, dependency closure, frontmatter,
 local references, absence of private state, and `git diff --check`. Run installer
 tests when installation behavior changes. Test in temporary directories, never
 by replacing the user's installed skills. Report actual validation limits.
 
-Keep README.md and SOURCES.md aligned with the final collection. Publish to the
-personal repository when authorized; syncing the Momentum fork is a separate
-action and is not automatic.
+Keep README.md and SOURCES.md aligned with the final collection, including
+ownership, exact counts, required consumers, upstream revisions (or explicitly
+unknown revisions), licenses, local adaptations and deliberate exclusions.
+Verify installed source hashes after synchronization to substantiate preservation.
+Review changed executable behavior with Ponytail Review and consequential
+privacy, scope or publication claims with Mad Senior when those risks apply;
+reuse adequate reviews instead of adding repetitive approval gates.
+
+## Synchronization and delivery
+
+For a request referring to earlier project conversations, read the complete
+relevant conversations, including corrections, later decisions and outcomes;
+paginate as needed. Titles and summaries are retrieval aids, not sufficient
+requirements evidence. Reconcile durable requirements into these policies and
+README/SOURCES as appropriate. Keep private transcripts and work evidence out
+of the repository. Do not promote a one-time action, superseded direction or
+old approval into permanent authority.
+
+When publication is authorized, use a feature branch in the personal repository
+and open a PR into its main branch. Never push synchronization changes directly
+to main or substitute the Momentum fork as the PR target. Verify the saved PR's
+base/head repository, branches and commit. Leave merging to an explicit merge
+instruction; approval for an earlier PR does not authorize a later merge.
+After an authorized merge, verify the merge and fast-forward the local checkout
+without discarding unrelated edits. Fork synchronization remains a separate,
+explicitly authorized action.
+
+Report the actual artifact/PR, changes, inventory, checks, review coverage,
+installed-original preservation and remaining limitations. A delivered PR may
+finish a PR-delivery request; it does not establish merge, deployment, acceptance
+or Jira closure. Preserve the requested endpoint and continue authorized work.
+
+## Coordination and Jira ownership
+
+Use the available Coordinator skill as the primary session entry point unless
+the user chooses otherwise. Keep small requests simple; delegate substantial
+separable work with bounded ownership and capacity. Skill maintenance belongs
+to Skill Improver; executable development and Git delivery go through Development
+Orchestrator. Subagents keep their assigned roles and do not restart Coordinator.
+Unavailable tooling is a precise limitation, not a reason to invent capabilities.
+
+Use an explicitly supplied work ticket and record the work in Jira when requested;
+do not infer a new ticket mandate from a past ticket-creation request. All Jira
+operations and every acli invocation use Jira Ticket Supporter from the active
+catalog or resolved shared skill source. It alone prepares, executes and verifies
+authorized Jira mutations. Other skills hand it facts and the requested delta;
+they never write through another CLI, script, API, browser or connector. Reads,
+implementation, comments, transitions and closure retain their own authorization
+scope. Other acli products remain read-only even when Jira Ticket Supporter is
+active. Do not copy private Jira defaults or approval memory into these policies.
+
+When using a skill, start each user-facing commentary/final message with one
+bold label on its own line: **[SKILL NAME · PURPOSE]**. Use uppercase names with
+spaces and no plugin prefix. Label the task owner, attribute supporting roles
+when relevant, and distinguish a skill switch from a separate agent. Keep these
+labels out of published tickets, source artifacts and tool calls.
 
 ## Conversation titles
 
-When title tools are available, apply this title convention without asking:
+When title tools are available, update only the current chat unless a bounded
+batch rename was explicitly requested. Titles describe the requested outcome
+and last verified state, never runtime idleness or the ticket status alone.
 
-- One identified work ticket: `KEY-123: Ticket summary`, using its real summary.
-- Multiple identified work tickets: `[2 TICKETS][KEY-123 & KEY-456]: Combined summary`,
-  adjusting count and keys as needed.
-- Without a specific ticket work item: preserve the descriptive title and prefix
-  `[NO-TICKET] ` exactly once. General discovery, triage, QA, audits, deployment,
-  and administration may remain NO-TICKET despite incidental ticket mentions.
-- When the work takes on a specific ticket, replace the generic title. Preserve
-  titles already following the convention. Rename only the current chat.
+- Begin with exactly one status: `[OPEN]` for unfinished work that can continue;
+  `[WAITING]` for a verified answer, approval, access or external dependency;
+  `[PAUSED]` only when the user explicitly defers; `[DONE]` only when the requested
+  outcome is verified and no required work remains.
+- One ticket: `[STATUS] KEY-123: Short faithful topic`, derived from its real
+  summary or trusted conversation. Multiple tickets:
+  `[STATUS] [2 TICKETS][KEY-123 & KEY-456]: Shared topic`. Preserve every key and
+  the count; use an unambiguous shared-prefix form when needed to fit.
+- Without a specific work ticket: `[STATUS] [NO-TICKET] Subject — Specific task`.
+  Incidental ticket mentions do not require adopting a ticket title.
+- Keep the subject core stable and distinctive words early. Every WAITING title
+  includes its verified dependency, such as `— Your QA approval` or `— CI results`.
+  Never guess the responsible person or assume the dependency cleared.
+- Reassess at start/resume, scope or dependency changes, explicit pause and before
+  ending. Reopen DONE for additional work; replace NO-TICKET when scope adopts a
+  real ticket. Use explicit dates for dated recaps. Verify the saved title and
+  detect truncation; shorten wording before losing status, keys or dependency.
+- For authorized historical batches, inspect requests, steering and outcomes;
+  age, archive state and title alone do not prove completion. Preserve placement,
+  record old/new titles, verify saves, and leave ambiguous classification unresolved.
+  Do not message or resume chats merely to enforce titles. Titles are last-known
+  state, not background monitoring.
 
 ## Jira authentication
 

@@ -1,6 +1,6 @@
 # Browser and desktop access, per source
 
-Use these routes only after suitable connector, CLI/API, or local-file access has been checked. Browser fallback requires an agent-owned instance or connection that operates independently of the user's foreground browser and profile; do not assume authentication is shared. If the agent ships its own guidance for those tools, read it before the first step; this file only says where to go and what to look for.
+Use these routes only after suitable connector, CLI/API, or local-file access has been checked. Browser fallback requires an agent-owned instance or connection that operates independently of the user's foreground browser and profile; do not assume authentication is shared. If the agent ships its own guidance for those tools, read it before the first step (in Claude Code: the built-in browser pane `mcp__Claude_Browser__*` via skill `anthropic-skills:built-in-browser`, which is agent-owned; Claude in Chrome `mcp__claude-in-chrome__*` via `anthropic-skills:chrome-browser`, which is the user's own Chrome; desktop control via `anthropic-skills:computer-use`); this file only says where to go and what to look for.
 
 Ground rules, repeated because they matter:
 - Read only. Search boxes and filters are the only things you type into. Never send, reply, react, archive, delete, accept, or change a setting.
@@ -48,7 +48,7 @@ The recents page lists candidates with titles and relative times; paginate throu
 - Chat history: `https://chatgpt.com` — the sidebar lists conversations grouped by day; scroll to load older ones. Use titles and dates to select candidates, then read relevant messages through the outcome and later corrections.
 - Codex (cloud): `https://chatgpt.com/codex` — the task list shows each task with repo, title and date, plus whether a PR was opened. Open the task and verify its actual outcome; a PR being opened does not prove merge, deployment or acceptance. Record the dated action and verified link.
 - Codex CLI (local): sessions live under `~/.codex/sessions/` (JSONL, one file per session with timestamps). Prefer scoped read-only file tools when app history tools are insufficient. Inspect timestamped messages and action results for the selected sessions through the requested range; do not infer completion from filenames or the first user line.
-- Claude Code (local): `~/.claude/projects/<project>/*.jsonl`; same approach, timestamps are in each line.
+- Claude Code (local): `~/.claude/projects/<encoded-cwd>/*.jsonl`; same approach, timestamps are in each line. In the desktop app, prefer the session tools `mcp__ccd_session_mgmt__list_sessions` and `search_session_transcripts` for discovery.
 
 ## 10. Tickets
 - Linear: `https://linear.app` — "My issues" view, filter Updated date range; or the search with `assignee:me updated:>YYYY-MM-DD`.
